@@ -45,7 +45,7 @@ class CircularMealCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          
+
           // Title
           Text(
             title,
@@ -59,7 +59,7 @@ class CircularMealCard extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 4),
-          
+
           // Author
           Text(
             author,
@@ -73,7 +73,7 @@ class CircularMealCard extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 12),
-          
+
           // Duration and recipe icon
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),

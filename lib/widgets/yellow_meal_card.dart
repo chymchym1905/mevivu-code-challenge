@@ -52,7 +52,7 @@ class YellowMealCard extends StatelessWidget {
                       ),
                     ),
                   ),
-      
+
                   // By author
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
@@ -78,7 +78,7 @@ class YellowMealCard extends StatelessWidget {
                       ],
                     ),
                   ),
-      
+
                   // Duration and bookmark
                   Padding(
                       padding: const EdgeInsets.all(16),
@@ -98,7 +98,8 @@ class YellowMealCard extends StatelessWidget {
                                     child: const Padding(
                                         padding: EdgeInsets.all(4.0),
                                         child: Icon(Icons.bookmark_outline,
-                                            color: Color(0xFF795548), size: 20))))
+                                            color: Color(0xFF795548),
+                                            size: 20))))
                           ]))
                 ])),
           ]),

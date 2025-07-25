@@ -1,7 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-
-
 part 'meal_thumb.freezed.dart';
 part 'meal_thumb.g.dart';
 

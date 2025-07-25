@@ -42,7 +42,8 @@ class ThemeNotifier extends _$ThemeNotifier {
   void updateSystemUIOverlay(ThemeMode mode) {
     bool isDark;
     if (mode == ThemeMode.system) {
-      isDark = WidgetsBinding.instance.platformDispatcher.platformBrightness == Brightness.dark;
+      isDark = WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+          Brightness.dark;
     } else {
       isDark = mode == ThemeMode.dark;
     }

@@ -1,11 +1,24 @@
+import 'package:mevivu/shared/network_providers/meal.dart';
+
 import '../imports.dart';
 
-class FilterBottomSheet extends StatelessWidget {
-  const FilterBottomSheet({super.key});
+class FilterBottomSheet extends StatefulWidget {
+  const FilterBottomSheet({super.key, required this.updateFilter});
+  final void Function(Map<String, dynamic>) updateFilter;
+
+  @override
+  State<FilterBottomSheet> createState() => _FilterBottomSheetState();
+}
+
+class _FilterBottomSheetState extends State<FilterBottomSheet> {
+  int categorySelected = 0;
+  int ingredientSelected = 0;
+  int areaSelected = 0;
+  Map<String, dynamic> filter = {};
 
   @override
   Widget build(BuildContext context) {
-    final selectedColor = const Color(0xFFFFD54F); // Yellow
+    final selectedColor = Theme.of(context).colorScheme.primaryFixed; // Yellow
     final borderColor = Colors.grey.shade300;
 
     Widget sectionTitle(String text) {
@@ -21,7 +34,7 @@ class FilterBottomSheet extends StatelessWidget {
       );
     }
 
-    Widget chip(String text, bool selected) {
+    Widget chip(String text, bool selected, int index) {
       return Padding(
         padding: const EdgeInsets.only(right: 8, bottom: 8),
         child: ChoiceChip(
@@ -33,7 +46,50 @@ class FilterBottomSheet extends StatelessWidget {
           labelStyle: TextStyle(
               color: selected ? Colors.black : Colors.black87,
               fontWeight: selected ? FontWeight.bold : FontWeight.normal),
-          onSelected: (_) {}, // Replace with actual logic
+          onSelected: (value) {
+            categorySelected = index;
+            filter['c'] = text;
+          },
+        ),
+      );
+    }
+
+    Widget chipArea(String text, bool selected, int index) {
+      return Padding(
+        padding: const EdgeInsets.only(right: 8, bottom: 8),
+        child: ChoiceChip(
+          label: Text(text),
+          selected: selected,
+          selectedColor: selectedColor,
+          backgroundColor: Colors.white,
+          side: BorderSide(color: borderColor),
+          labelStyle: TextStyle(
+              color: selected ? Colors.black : Colors.black87,
+              fontWeight: selected ? FontWeight.bold : FontWeight.normal),
+          onSelected: (value) {
+            areaSelected = index;
+            filter['a'] = text;
+          },
+        ),
+      );
+    }
+
+    Widget chipIngredient(String text, bool selected, int index) {
+      return Padding(
+        padding: const EdgeInsets.only(right: 8, bottom: 8),
+        child: ChoiceChip(
+          label: Text(text),
+          selected: selected,
+          selectedColor: selectedColor,
+          backgroundColor: Colors.white,
+          side: BorderSide(color: borderColor),
+          labelStyle: TextStyle(
+              color: selected ? Colors.black : Colors.black87,
+              fontWeight: selected ? FontWeight.bold : FontWeight.normal),
+          onSelected: (value) {
+            ingredientSelected = index;
+            filter['i'] = text;
+          },
         ),
       );
     }
@@ -97,45 +153,71 @@ class FilterBottomSheet extends StatelessWidget {
             // Section: Danh mục
             sectionTitle('Danh mục'),
             const SizedBox(height: 8),
-            Wrap(
-              children: [
-                chip('Danh mục 1', true),
-                chip('Danh mục 2', false),
-                chip('Danh mục', false),
-                chip('Danh mục 3', false),
-                chip('Danh mục 4', false),
-              ],
-            ),
+            Consumer(builder: (context, ref, child) {
+              final category = ref.watch(fetchCategoriesProvider);
+              return category.when(
+                  data: (data) {
+                    filter['c'] = data[0];
+                    return Wrap(
+                        children: List.generate(
+                      data.length,
+                      (index) {
+                        return chip(
+                            data[index], index == categorySelected, index);
+                      },
+                    ));
+                  },
+                  loading: () => Center(child: CircularProgressIndicator()),
+                  error: (error, stack) => Text('Error: ${error.toString()}'));
+            }),
 
             const SizedBox(height: 12),
 
             // Section: Nguyên liệu
             sectionTitle('Nguyên liệu'),
             const SizedBox(height: 8),
-            Wrap(
-              children: [
-                chip('Thịt gà', true),
-                chip('Thịt heo', false),
-                chip('Danh mục', false),
-                chip('Ức gà', false),
-                chip('Chân gà', false),
-              ],
-            ),
+            Consumer(builder: (context, ref, child) {
+              final category = ref.watch(fetchIngredientsProvider);
+              return category.when(
+                  data: (data) {
+                    filter['i'] = data[0];
+                    return Wrap(
+                        children: List.generate(
+                      data.length,
+                      (index) {
+                        return chipIngredient(
+                            data[index].strIngredient ?? 'Empty',
+                            index == categorySelected,
+                            index);
+                      },
+                    ));
+                  },
+                  loading: () => Center(child: CircularProgressIndicator()),
+                  error: (error, stack) => Text('Error: ${error.toString()}'));
+            }),
 
             const SizedBox(height: 12),
 
             // Section: Khu vực
             sectionTitle('Khu vực'),
             const SizedBox(height: 8),
-            Wrap(
-              children: [
-                chip('TP.HCM', false),
-                chip('Bình Phước', false),
-                chip('Đồng Nai', false),
-                chip('An Giang', false),
-                chip('Long An', true),
-              ],
-            ),
+            Consumer(builder: (context, ref, child) {
+              final category = ref.watch(fetchAreasProvider);
+              return category.when(
+                  data: (data) {
+                    filter['a'] = data[0];
+                    return Wrap(
+                        children: List.generate(
+                      data.length,
+                      (index) {
+                        return chipArea(
+                            data[index], index == categorySelected, index);
+                      },
+                    ));
+                  },
+                  loading: () => Center(child: CircularProgressIndicator()),
+                  error: (error, stack) => Text('Error: ${error.toString()}'));
+            }),
 
             const SizedBox(height: 20),
 
@@ -143,7 +225,9 @@ class FilterBottomSheet extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  widget.updateFilter(filter);
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: selectedColor,
                   foregroundColor: Colors.black,

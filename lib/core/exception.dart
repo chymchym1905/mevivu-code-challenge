@@ -4,7 +4,8 @@ class AppException implements Exception {
   final String? identifier;
   final String? data;
 
-  AppException({required this.message, required this.code, this.data, this.identifier});
+  AppException(
+      {required this.message, required this.code, this.data, this.identifier});
 
   @override
   String toString() {

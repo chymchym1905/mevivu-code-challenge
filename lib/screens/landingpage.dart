@@ -62,7 +62,7 @@ class LandingPage extends StatelessWidget {
                       splashColor: colorScheme.onPrimary.withOpacity(0.5),
                       child: Ink(
                           decoration: BoxDecoration(
-                              color: colorScheme.primary,
+                              color: colorScheme.primaryFixedDim,
                               borderRadius: BorderRadius.circular(12)),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
@@ -73,11 +73,13 @@ class LandingPage extends StatelessWidget {
                                 Text(
                                   'Bắt đầu',
                                   style: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.white),
+                                      fontSize: 18, color: Colors.white),
                                 ),
                                 SizedBox(width: 8),
-                                Icon(Icons.arrow_forward_rounded)
+                                Icon(
+                                  Icons.arrow_forward_rounded,
+                                  color: Colors.white,
+                                )
                               ],
                             ),
                           ))),

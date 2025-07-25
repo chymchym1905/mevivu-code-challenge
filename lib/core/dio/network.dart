@@ -12,8 +12,10 @@ abstract class NetworkService {
       {Map<String, dynamic>? queryParameters, CancelToken? cancelToken});
   Future<Either<AppException, Response<T>>> post<T>(String path,
       {Map<String, dynamic>? body, CancelToken? cancelToken});
-  Future<Either<AppException, Response<T>>> put<T>(String path, {Map<String, dynamic>? body, CancelToken? cancelToken});
-  Future<Either<AppException, Response<T>>> delete<T>(String path, {CancelToken? cancelToken});
+  Future<Either<AppException, Response<T>>> put<T>(String path,
+      {Map<String, dynamic>? body, CancelToken? cancelToken});
+  Future<Either<AppException, Response<T>>> delete<T>(String path,
+      {CancelToken? cancelToken});
 }
 
 class DioNetworkService with NetworkException implements NetworkService {
@@ -25,18 +27,22 @@ class DioNetworkService with NetworkException implements NetworkService {
     _dio.options.baseUrl = baseUrl;
     if (kDebugMode) {
       _dio.interceptors.add(LogInterceptor(
-          requestBody: true, error: true, request: true, logPrint: (o) => log(o.toString(), name: 'Dio')));
+          requestBody: true,
+          error: true,
+          request: true,
+          logPrint: (o) => log(o.toString(), name: 'Dio')));
     }
   }
 
   @override
   Map<String, dynamic> get headers => _dio.options.headers;
 
-
   @override
   Future<Either<AppException, Response<T>>> get<T>(String path,
       {Map<String, dynamic>? queryParameters, CancelToken? cancelToken}) async {
-    return await handleException(() => _dio.get<T>(path, queryParameters: queryParameters, cancelToken: cancelToken),
+    return await handleException(
+            () => _dio.get<T>(path,
+                queryParameters: queryParameters, cancelToken: cancelToken),
             endpoint: path)
         .run();
   }
@@ -44,18 +50,28 @@ class DioNetworkService with NetworkException implements NetworkService {
   @override
   Future<Either<AppException, Response<T>>> post<T>(String path,
       {Map<String, dynamic>? body, CancelToken? cancelToken}) async {
-    return await handleException(() => _dio.post<T>(path, data: body, cancelToken: cancelToken), endpoint: path).run();
+    return await handleException(
+            () => _dio.post<T>(path, data: body, cancelToken: cancelToken),
+            endpoint: path)
+        .run();
   }
 
   @override
   Future<Either<AppException, Response<T>>> put<T>(String path,
       {Map<String, dynamic>? body, CancelToken? cancelToken}) async {
-    return await handleException(() => _dio.put<T>(path, data: body, cancelToken: cancelToken), endpoint: path).run();
+    return await handleException(
+            () => _dio.put<T>(path, data: body, cancelToken: cancelToken),
+            endpoint: path)
+        .run();
   }
 
   @override
-  Future<Either<AppException, Response<T>>> delete<T>(String path, {CancelToken? cancelToken}) async {
-    return await handleException(() => _dio.delete<T>(path, cancelToken: cancelToken), endpoint: path).run();
+  Future<Either<AppException, Response<T>>> delete<T>(String path,
+      {CancelToken? cancelToken}) async {
+    return await handleException(
+            () => _dio.delete<T>(path, cancelToken: cancelToken),
+            endpoint: path)
+        .run();
   }
 }
 
@@ -73,8 +89,10 @@ mixin NetworkException {
             case DioException():
               final response = e.response;
               return AppException(
-                message: response?.data.toString() ?? e.message ?? 'Server error',
-                code: response?.statusCode?.toString() ?? 'Unknown HTTP Status Code',
+                message:
+                    response?.data.toString() ?? e.message ?? 'Server error',
+                code: response?.statusCode?.toString() ??
+                    'Unknown HTTP Status Code',
                 identifier: 'DioException: ${e.type} at $endpoint',
                 data: response?.data.toString(),
               );

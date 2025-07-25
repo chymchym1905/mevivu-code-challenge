@@ -4,12 +4,14 @@ import 'package:mevivu/core/theme/themedata.dart';
 import 'imports.dart';
 
 void main() async {
-      // debugRepaintRainbowEnabled = true;
+  // debugRepaintRainbowEnabled = true;
   WidgetsFlutterBinding.ensureInitialized();
   debugPrint(defaultTargetPlatform.toString());
   final prefs = await SharedPreferences.getInstance();
   runApp(ProviderScope(
-      overrides: [sharedPrefInstanceProvider.overrideWithValue(prefs)], observers: [Observers()], child: const Root()));
+      overrides: [sharedPrefInstanceProvider.overrideWithValue(prefs)],
+      observers: [Observers()],
+      child: const Root()));
 }
 
 class Root extends ConsumerWidget {
@@ -20,12 +22,12 @@ class Root extends ConsumerWidget {
     final theme = ref.watch(themeNotifierProvider);
     final router = ref.watch(routerProvider);
     return MaterialApp.router(
-        themeMode: theme,
-        title: 'Food App',
-        theme: light,
-        darkTheme: dark,
-        debugShowCheckedModeBanner: false,
-        routerConfig: router,
+      themeMode: theme,
+      title: 'Food App',
+      theme: light,
+      darkTheme: dark,
+      debugShowCheckedModeBanner: false,
+      routerConfig: router,
     );
   }
 }

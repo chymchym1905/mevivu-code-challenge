@@ -1,7 +1,11 @@
 import '../imports.dart';
 
 class CategoryTab extends StatelessWidget {
-  const CategoryTab({super.key, required this.name, required this.selected, required this.onTap});
+  const CategoryTab(
+      {super.key,
+      required this.name,
+      required this.selected,
+      required this.onTap});
   final String name;
   final bool selected;
   final void Function() onTap;
@@ -13,7 +17,8 @@ class CategoryTab extends StatelessWidget {
         child: InkWell(
             onTap: onTap,
             borderRadius: BorderRadius.circular(5),
-            splashColor: Theme.of(context).colorScheme.onPrimary.withOpacity(0.5),
+            splashColor:
+                Theme.of(context).colorScheme.onPrimary.withOpacity(0.5),
             child: Ink(
                 decoration: BoxDecoration(
                     color: selected

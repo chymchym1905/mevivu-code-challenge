@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-
 part 'meal_detail.freezed.dart';
 part 'meal_detail.g.dart';
 

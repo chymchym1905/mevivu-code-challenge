@@ -37,7 +37,7 @@ class _ShellState extends State<Shell> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AnimatedBottomNavigationBar.builder(
         elevation: 0,
-        
+
         tabBuilder: (index, isActive) => _tabBuilder(index, isActive, 20, 20),
         itemCount: 4,
         backgroundColor: Theme.of(context).colorScheme.surface,

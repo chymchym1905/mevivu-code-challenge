@@ -11,15 +11,16 @@ class RecentRecipe extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 150,
-            height: 150,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),                
-                image:
-                    DecorationImage(image: AssetImage('assets/sqfood.jpg'), fit: BoxFit.cover))
-          ),
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  image: DecorationImage(
+                      image: AssetImage('assets/sqfood.jpg'),
+                      fit: BoxFit.cover))),
           SizedBox(height: 8),
-          Text('Trứng chiên', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          Text('Trứng chiên',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           SizedBox(height: 8),
           Row(
             children: [

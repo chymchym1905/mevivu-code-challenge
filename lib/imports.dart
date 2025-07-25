@@ -5,7 +5,6 @@ export 'package:dio/dio.dart';
 export 'package:google_fonts/google_fonts.dart';
 export 'package:go_router/go_router.dart';
 
-
 export 'core/index.dart';
 export 'shared/index.dart';
 export 'core/utils/index.dart';

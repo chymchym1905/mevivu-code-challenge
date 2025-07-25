@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mevivu/shared/network_providers/meal.dart';
-import 'package:mevivu/widgets/areacard.dart';
 import 'package:mevivu/widgets/categorytab.dart';
 import 'package:mevivu/widgets/recent_recipe.dart';
 import 'package:mevivu/widgets/recipe_card.dart';
@@ -9,9 +8,15 @@ import 'package:mevivu/widgets/yellow_meal_card.dart';
 
 import '../imports.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final areaFilter = {'a': 'Vietnamese'};
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -55,7 +60,7 @@ class Home extends StatelessWidget {
             Consumer(
               builder: (context, ref, child) {
                 final mealsByArea =
-                    ref.watch(fetchMealByFilterProvider('a', 'Vietnamese'));
+                    ref.watch(fetchMealByAreaProvider(areaFilter));
                 return mealsByArea.when(
                   data: (meals) {
                     // Return a list of widgets mapped from the meals data
@@ -144,31 +149,41 @@ class Home extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text('Nguyên liệu',
                     style:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               ),
-            SizedBox(height: 16),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Consumer(builder: (context, ref, child) {
-                final ingredients = ref.watch(fetchIngredientsProvider);
-                return ingredients.when(
-                  data:(data) {
-                    return Wrap(
-                      spacing: 8,
-                      direction: Axis.horizontal,
-                      runSpacing: 8,
-                      children: data.map((e) => CategoryTab(name: e.strIngredient ?? 'No', selected: false, onTap: () {})).toList(),
-                    );
+              SizedBox(height: 16),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Consumer(
+                  builder: (context, ref, child) {
+                    final ingredients = ref.watch(fetchIngredientsProvider);
+                    return ingredients.when(
+                        data: (data) {
+                          return Wrap(
+                            spacing: 8,
+                            direction: Axis.horizontal,
+                            runSpacing: 8,
+                            children: data
+                                .map((e) => CategoryTab(
+                                    name: e.strIngredient ?? 'No',
+                                    selected: false,
+                                    onTap: () {}))
+                                .toList(),
+                          );
+                        },
+                        loading: () =>
+                            Center(child: CircularProgressIndicator()),
+                        error: (error, stack) =>
+                            Text('Error: ${error.toString()}'));
                   },
-                  loading: () => Center(child: CircularProgressIndicator()),
-                      error: (error, stack) => Text('Error: ${error.toString()}'));
-              },),
-            )
-          ],),
+                ),
+              )
+            ],
+          ),
           SizedBox(height: 200)
         ])
       ],
@@ -191,6 +206,7 @@ class _CategoryScrollViewState extends State<CategoryScrollView> {
       final categoryasyncvalue = ref.watch(fetchCategoriesProvider);
       return categoryasyncvalue.when(
         data: (categories) {
+          final filter = {'c': categories[_isSelected]};
           // Return a list of widgets mapped from the meals data
           return Column(
             children: [
@@ -216,8 +232,8 @@ class _CategoryScrollViewState extends State<CategoryScrollView> {
               SizedBox(height: 8),
               Consumer(
                 builder: (context, ref, child) {
-                  final mealsByCategory = ref.watch(
-                      fetchMealByFilterProvider('c', categories[_isSelected]));
+                  final mealsByCategory =
+                      ref.watch(fetchMealByCategoryProvider(filter));
                   return mealsByCategory.when(
                       data: (meals) {
                         return SingleChildScrollView(

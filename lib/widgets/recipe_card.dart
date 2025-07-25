@@ -7,16 +7,18 @@ class RecipeCard extends StatefulWidget {
   final String rating;
   final VoidCallback? onBookmarkPressed;
   final VoidCallback? onPlayPressed;
+  final double? width;
 
-  const RecipeCard({
-    Key? key,
-    required this.imageUrl,
-    required this.title,
-    required this.duration,
-    this.rating = "4.8",
-    this.onBookmarkPressed,
-    this.onPlayPressed,
-  }) : super(key: key);
+  const RecipeCard(
+      {Key? key,
+      required this.imageUrl,
+      required this.title,
+      required this.duration,
+      this.rating = "4.8",
+      this.onBookmarkPressed,
+      this.onPlayPressed,
+      this.width = 280})
+      : super(key: key);
 
   @override
   State<RecipeCard> createState() => _RecipeCardState();
@@ -27,7 +29,7 @@ class _RecipeCardState extends State<RecipeCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 280,
+      width: widget.width,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -58,13 +60,14 @@ class _RecipeCardState extends State<RecipeCard> {
                   fit: BoxFit.cover,
                 ),
               ),
-              
+
               // Rating
               Positioned(
                 top: 8,
                 left: 8,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.6),
                     borderRadius: BorderRadius.circular(16),
@@ -85,7 +88,7 @@ class _RecipeCardState extends State<RecipeCard> {
                   ),
                 ),
               ),
-              
+
               // Bookmark button
               Positioned(
                 top: 8,
@@ -106,7 +109,7 @@ class _RecipeCardState extends State<RecipeCard> {
                   ),
                 ),
               ),
-              
+
               // Play button
               Positioned.fill(
                 child: Center(
@@ -129,7 +132,7 @@ class _RecipeCardState extends State<RecipeCard> {
               ),
             ],
           ),
-          
+
           // Duration and favorite
           Padding(
             padding: const EdgeInsets.fromLTRB(12, 8, 12, 4),
@@ -165,7 +168,7 @@ class _RecipeCardState extends State<RecipeCard> {
               ],
             ),
           ),
-          
+
           // Title
           Padding(
             padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
@@ -179,7 +182,7 @@ class _RecipeCardState extends State<RecipeCard> {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          
+
           // Author with avatar
           Padding(
             padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),

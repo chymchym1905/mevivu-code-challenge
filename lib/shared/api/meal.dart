@@ -7,7 +7,7 @@ abstract class MealApiBase {
       String letter,
       {CancelToken? cancelToken});
   Future<Either<AppException, List<MealThumb>>> fetchMealByFilter(
-      String filterType, String filter,
+      Map<String, dynamic> filter,
       {CancelToken? cancelToken});
   Future<Either<AppException, List<String>>> fetchCategories(
       {CancelToken? cancelToken});
@@ -44,11 +44,11 @@ class MealApi implements MealApiBase {
 
   @override
   Future<Either<AppException, List<MealThumb>>> fetchMealByFilter(
-      String filterType, String filter,
+      Map<String, dynamic> filter,
       {CancelToken? cancelToken}) async {
     const url = '/filter.php';
     final response = await _networkService.get(url,
-        queryParameters: {filterType: filter}, cancelToken: cancelToken);
+        queryParameters: filter, cancelToken: cancelToken);
     return response.fold((l) => left(l), (r) {
       if (r.statusCode == 200) {
         final entries = (r.data['meals'] as List)

@@ -1,7 +1,12 @@
 import '../imports.dart';
 
 class InkWellTextButton extends StatelessWidget {
-  const InkWellTextButton({super.key, required this.onTap, required this.text, this.fontSize = 16, this.icon});
+  const InkWellTextButton(
+      {super.key,
+      required this.onTap,
+      required this.text,
+      this.fontSize = 16,
+      this.icon});
   final void Function() onTap;
   final String text;
   final double fontSize;
@@ -18,12 +23,17 @@ class InkWellTextButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           splashColor: colorScheme.onPrimary.withOpacity(0.5),
           child: Ink(
-              decoration: BoxDecoration(color: colorScheme.primaryContainer, borderRadius: BorderRadius.circular(12)),
+              decoration: BoxDecoration(
+                  color: colorScheme.primaryContainer,
+                  borderRadius: BorderRadius.circular(12)),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 child: Text(
                   text,
-                  style: TextStyle(fontSize: fontSize, color: colorScheme.onPrimaryContainer),
+                  style: TextStyle(
+                      fontSize: fontSize,
+                      color: colorScheme.onPrimaryContainer),
                 ),
               ))),
     );

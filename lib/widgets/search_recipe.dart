@@ -1,7 +1,10 @@
 import '../imports.dart';
 
 class SearchResultRecipe extends StatefulWidget {
-  const SearchResultRecipe({super.key});
+  const SearchResultRecipe(
+      {super.key, required this.name, required this.thumb});
+  final String name;
+  final String thumb;
 
   @override
   State<SearchResultRecipe> createState() => _SearchResultRecipeState();
@@ -29,8 +32,8 @@ class _SearchResultRecipeState extends State<SearchResultRecipe> {
                 aspectRatio: 1, // makes it square
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
-                  child: Image.asset(
-                    'assets/salad.png', // Replace with your image
+                  child: Image.network(
+                    widget.thumb, // Replace with your image
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -38,77 +41,50 @@ class _SearchResultRecipeState extends State<SearchResultRecipe> {
 
               // Top right heart icon
               Positioned(
-                top: 8,
-                right: 8,
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: InkWell(
-                    customBorder: CircleBorder(),
-                    onTap: () {
-                      setState(() {
-                        _isFavorite = !_isFavorite;
-                      });
-                    },
-                    child: Ink(
-                      decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 4,
-                      )
-                    ],
-                  ),
-                      padding: const EdgeInsets.all(4.0),
-                      child: Icon(
-                        _isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color: _isFavorite ? Colors.red : Colors.grey[400],
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-
-              // Text overlay on image (e.g. “Thai Beef Salad”)
-              const Positioned(
-                bottom: 8,
-                right: 8,
-                child: Text(
-                  "Thai\nBeef\nSalad",
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.white,
-                    shadows: [
-                      Shadow(
-                        color: Colors.black54,
-                        offset: Offset(0.5, 0.5),
-                        blurRadius: 2,
-                      )
-                    ],
-                  ),
-                ),
-              ),
+                  top: 8,
+                  right: 8,
+                  child: Material(
+                      type: MaterialType.transparency,
+                      child: InkWell(
+                          customBorder: CircleBorder(),
+                          onTap: () {
+                            setState(() {
+                              _isFavorite = !_isFavorite;
+                            });
+                          },
+                          child: Ink(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        blurRadius: 4)
+                                  ]),
+                              padding: const EdgeInsets.all(4.0),
+                              child: Icon(
+                                _isFavorite
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color:
+                                    _isFavorite ? Colors.red : Colors.grey[400],
+                                size: 20,
+                              )))))
             ],
           ),
 
           const SizedBox(height: 8),
 
           // Title
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            child: Text(
-              'Salad bò kiểu Thái',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12),
+              child: Text(widget.name,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis)),
 
           const SizedBox(height: 4),
 

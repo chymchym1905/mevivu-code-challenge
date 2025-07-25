@@ -179,7 +179,7 @@ class _FetchMealByFirstLetterProviderElement
   String get letter => (origin as FetchMealByFirstLetterProvider).letter;
 }
 
-String _$fetchMealByFilterHash() => r'9736d56643804386d45bf3d069ef442b6d465eb4';
+String _$fetchMealByFilterHash() => r'911781db8909238220a0e504d518c81c48828b41';
 
 /// See also [fetchMealByFilter].
 @ProviderFor(fetchMealByFilter)
@@ -192,11 +192,9 @@ class FetchMealByFilterFamily extends Family<AsyncValue<List<MealThumb>>> {
 
   /// See also [fetchMealByFilter].
   FetchMealByFilterProvider call(
-    String filterType,
-    String filter,
+    Map<String, dynamic> filter,
   ) {
     return FetchMealByFilterProvider(
-      filterType,
       filter,
     );
   }
@@ -206,7 +204,6 @@ class FetchMealByFilterFamily extends Family<AsyncValue<List<MealThumb>>> {
     covariant FetchMealByFilterProvider provider,
   ) {
     return call(
-      provider.filterType,
       provider.filter,
     );
   }
@@ -231,12 +228,10 @@ class FetchMealByFilterProvider
     extends AutoDisposeFutureProvider<List<MealThumb>> {
   /// See also [fetchMealByFilter].
   FetchMealByFilterProvider(
-    String filterType,
-    String filter,
+    Map<String, dynamic> filter,
   ) : this._internal(
           (ref) => fetchMealByFilter(
             ref as FetchMealByFilterRef,
-            filterType,
             filter,
           ),
           from: fetchMealByFilterProvider,
@@ -248,7 +243,6 @@ class FetchMealByFilterProvider
           dependencies: FetchMealByFilterFamily._dependencies,
           allTransitiveDependencies:
               FetchMealByFilterFamily._allTransitiveDependencies,
-          filterType: filterType,
           filter: filter,
         );
 
@@ -259,12 +253,10 @@ class FetchMealByFilterProvider
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.filterType,
     required this.filter,
   }) : super.internal();
 
-  final String filterType;
-  final String filter;
+  final Map<String, dynamic> filter;
 
   @override
   Override overrideWith(
@@ -279,7 +271,6 @@ class FetchMealByFilterProvider
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        filterType: filterType,
         filter: filter,
       ),
     );
@@ -292,15 +283,12 @@ class FetchMealByFilterProvider
 
   @override
   bool operator ==(Object other) {
-    return other is FetchMealByFilterProvider &&
-        other.filterType == filterType &&
-        other.filter == filter;
+    return other is FetchMealByFilterProvider && other.filter == filter;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, filterType.hashCode);
     hash = _SystemHash.combine(hash, filter.hashCode);
 
     return _SystemHash.finish(hash);
@@ -310,11 +298,8 @@ class FetchMealByFilterProvider
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 mixin FetchMealByFilterRef on AutoDisposeFutureProviderRef<List<MealThumb>> {
-  /// The parameter `filterType` of this provider.
-  String get filterType;
-
   /// The parameter `filter` of this provider.
-  String get filter;
+  Map<String, dynamic> get filter;
 }
 
 class _FetchMealByFilterProviderElement
@@ -323,9 +308,274 @@ class _FetchMealByFilterProviderElement
   _FetchMealByFilterProviderElement(super.provider);
 
   @override
-  String get filterType => (origin as FetchMealByFilterProvider).filterType;
+  Map<String, dynamic> get filter =>
+      (origin as FetchMealByFilterProvider).filter;
+}
+
+String _$fetchMealByAreaHash() => r'45597d42047e5063e3420e703ea7ce84d2d8c563';
+
+/// See also [fetchMealByArea].
+@ProviderFor(fetchMealByArea)
+const fetchMealByAreaProvider = FetchMealByAreaFamily();
+
+/// See also [fetchMealByArea].
+class FetchMealByAreaFamily extends Family<AsyncValue<List<MealThumb>>> {
+  /// See also [fetchMealByArea].
+  const FetchMealByAreaFamily();
+
+  /// See also [fetchMealByArea].
+  FetchMealByAreaProvider call(
+    Map<String, dynamic> filter,
+  ) {
+    return FetchMealByAreaProvider(
+      filter,
+    );
+  }
+
   @override
-  String get filter => (origin as FetchMealByFilterProvider).filter;
+  FetchMealByAreaProvider getProviderOverride(
+    covariant FetchMealByAreaProvider provider,
+  ) {
+    return call(
+      provider.filter,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'fetchMealByAreaProvider';
+}
+
+/// See also [fetchMealByArea].
+class FetchMealByAreaProvider
+    extends AutoDisposeFutureProvider<List<MealThumb>> {
+  /// See also [fetchMealByArea].
+  FetchMealByAreaProvider(
+    Map<String, dynamic> filter,
+  ) : this._internal(
+          (ref) => fetchMealByArea(
+            ref as FetchMealByAreaRef,
+            filter,
+          ),
+          from: fetchMealByAreaProvider,
+          name: r'fetchMealByAreaProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$fetchMealByAreaHash,
+          dependencies: FetchMealByAreaFamily._dependencies,
+          allTransitiveDependencies:
+              FetchMealByAreaFamily._allTransitiveDependencies,
+          filter: filter,
+        );
+
+  FetchMealByAreaProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.filter,
+  }) : super.internal();
+
+  final Map<String, dynamic> filter;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<MealThumb>> Function(FetchMealByAreaRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: FetchMealByAreaProvider._internal(
+        (ref) => create(ref as FetchMealByAreaRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        filter: filter,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<MealThumb>> createElement() {
+    return _FetchMealByAreaProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FetchMealByAreaProvider && other.filter == filter;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, filter.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin FetchMealByAreaRef on AutoDisposeFutureProviderRef<List<MealThumb>> {
+  /// The parameter `filter` of this provider.
+  Map<String, dynamic> get filter;
+}
+
+class _FetchMealByAreaProviderElement
+    extends AutoDisposeFutureProviderElement<List<MealThumb>>
+    with FetchMealByAreaRef {
+  _FetchMealByAreaProviderElement(super.provider);
+
+  @override
+  Map<String, dynamic> get filter => (origin as FetchMealByAreaProvider).filter;
+}
+
+String _$fetchMealByCategoryHash() =>
+    r'5369036da4f8b8c5031cb9345c37790ddcae0b25';
+
+/// See also [fetchMealByCategory].
+@ProviderFor(fetchMealByCategory)
+const fetchMealByCategoryProvider = FetchMealByCategoryFamily();
+
+/// See also [fetchMealByCategory].
+class FetchMealByCategoryFamily extends Family<AsyncValue<List<MealThumb>>> {
+  /// See also [fetchMealByCategory].
+  const FetchMealByCategoryFamily();
+
+  /// See also [fetchMealByCategory].
+  FetchMealByCategoryProvider call(
+    Map<String, dynamic> filter,
+  ) {
+    return FetchMealByCategoryProvider(
+      filter,
+    );
+  }
+
+  @override
+  FetchMealByCategoryProvider getProviderOverride(
+    covariant FetchMealByCategoryProvider provider,
+  ) {
+    return call(
+      provider.filter,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'fetchMealByCategoryProvider';
+}
+
+/// See also [fetchMealByCategory].
+class FetchMealByCategoryProvider
+    extends AutoDisposeFutureProvider<List<MealThumb>> {
+  /// See also [fetchMealByCategory].
+  FetchMealByCategoryProvider(
+    Map<String, dynamic> filter,
+  ) : this._internal(
+          (ref) => fetchMealByCategory(
+            ref as FetchMealByCategoryRef,
+            filter,
+          ),
+          from: fetchMealByCategoryProvider,
+          name: r'fetchMealByCategoryProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$fetchMealByCategoryHash,
+          dependencies: FetchMealByCategoryFamily._dependencies,
+          allTransitiveDependencies:
+              FetchMealByCategoryFamily._allTransitiveDependencies,
+          filter: filter,
+        );
+
+  FetchMealByCategoryProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.filter,
+  }) : super.internal();
+
+  final Map<String, dynamic> filter;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<MealThumb>> Function(FetchMealByCategoryRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: FetchMealByCategoryProvider._internal(
+        (ref) => create(ref as FetchMealByCategoryRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        filter: filter,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<MealThumb>> createElement() {
+    return _FetchMealByCategoryProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FetchMealByCategoryProvider && other.filter == filter;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, filter.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin FetchMealByCategoryRef on AutoDisposeFutureProviderRef<List<MealThumb>> {
+  /// The parameter `filter` of this provider.
+  Map<String, dynamic> get filter;
+}
+
+class _FetchMealByCategoryProviderElement
+    extends AutoDisposeFutureProviderElement<List<MealThumb>>
+    with FetchMealByCategoryRef {
+  _FetchMealByCategoryProviderElement(super.provider);
+
+  @override
+  Map<String, dynamic> get filter =>
+      (origin as FetchMealByCategoryProvider).filter;
 }
 
 String _$fetchCategoriesHash() => r'7503712a416c669dfe8a57a0b1505ee628ee2977';
