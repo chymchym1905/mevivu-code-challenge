@@ -64,3 +64,26 @@ abstract class MealDetail with _$MealDetail {
   factory MealDetail.fromJson(Map<String, Object?> json) =>
       _$MealDetailFromJson(json);
 }
+
+extension MealDetailExtensions on MealDetail {
+  List<(String ingredient, String measure)> get ingredientMeasurePairs {
+    final pairs = <(String, String)>[];
+
+    for (int i = 1; i <= 20; i++) {
+      final ingredient = _getFieldValue('strIngredient$i');
+      final measure = _getFieldValue('strMeasure$i');
+
+      if ((ingredient?.trim().isNotEmpty ?? false) &&
+          (measure?.trim().isNotEmpty ?? false)) {
+        pairs.add((ingredient!.trim(), measure!.trim()));
+      }
+    }
+
+    return pairs;
+  }
+
+  String? _getFieldValue(String fieldName) {
+    final map = toJson(); // thanks to freezed + json_serializable
+    return map[fieldName] as String?;
+  }
+}

@@ -76,9 +76,14 @@ class _SearchState extends ConsumerState<Search> {
                       runSpacing: 8,
                       direction: Axis.horizontal,
                       children: data.map((e) {
-                        return SearchResultRecipe(
-                            name: e.strMeal ?? 'No Meal',
-                            thumb: e.strMealThumb ?? '');
+                        return GestureDetector(
+                          onTap: () {
+                            context.push('/mealdetail/${e.idMeal}');
+                          },
+                          child: SearchResultRecipe(
+                              name: e.strMeal ?? 'No Meal',
+                              thumb: e.strMealThumb ?? ''),
+                        );
                       }).toList());
                 },
                 loading: () => Center(child: CircularProgressIndicator()),

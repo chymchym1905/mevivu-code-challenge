@@ -255,15 +255,20 @@ class _CategoryScrollViewState extends State<CategoryScrollView> {
                               }
                               return Padding(
                                 padding: pad,
-                                child: YellowMealCard(
-                                  imageUrl: meals[index].strMealThumb ??
-                                      'https://via.placeholder.com/300',
-                                  title:
-                                      meals[index].strMeal ?? 'No meal found',
-                                  author:
-                                      'Dau Gia Kien', // You can customize this or make it dynamic
-                                  duration: '20 Mins',
-                                  onBookmarkPressed: () {},
+                                child: GestureDetector(
+                                  onTap: () {
+                                    context.push('/mealdetail/${meals[index].idMeal}');
+                                  },
+                                  child: YellowMealCard(
+                                    imageUrl: meals[index].strMealThumb ??
+                                        'https://via.placeholder.com/300',
+                                    title:
+                                        meals[index].strMeal ?? 'No meal found',
+                                    author:
+                                        'Dau Gia Kien', // You can customize this or make it dynamic
+                                    duration: '20 Mins',
+                                    onBookmarkPressed: () {},
+                                  ),
                                 ),
                               );
                             })));
