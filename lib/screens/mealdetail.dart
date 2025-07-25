@@ -11,14 +11,15 @@ class MealDetailPage extends ConsumerWidget {
     final mealdetail = ref.watch(fetchMealByIdProvider(id));
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: mealdetail.when(data: (data) {
+          return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Top Image with overlay
               Stack(
                 children: [
-                  Image.asset('assets/banner.jpg'),
+                  Image.network(data.strMealThumb??''),
                   Positioned(
                     top: 16,
                     left: 16,
@@ -51,12 +52,12 @@ class MealDetailPage extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Cách chiên trứng một cách cung phu',
+                     Text(
+                      data.strMeal?? 'Unknown Recipe',
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 4),
-                    const Text('Cách chiên trứng một cách cung phu'),
+                     Text(data.strTags ?? 'No tags'),
                     const SizedBox(height: 8),
                     Row(
                       children: const [
@@ -77,7 +78,7 @@ class MealDetailPage extends ConsumerWidget {
                           backgroundImage: AssetImage('assets/avatar.png'),
                         ),
                         const SizedBox(width: 8),
-                        const Text('Đinh Trọng Phúc',
+                        const Text('Dau Gia Kien',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, color: Colors.orange)),
                       ],
@@ -134,7 +135,11 @@ class MealDetailPage extends ConsumerWidget {
                               ],
                             ),
                           ),
-                          Center(child: Text('Chế biến content')), // Tab 2 placeholder
+                          SingleChildScrollView(
+                            child: Column(children: [
+                              Center(child: Text(data.strInstructions ?? 'No Instruction'))
+                            ]),
+                          )
                         ],
                       ),
                     )
@@ -161,7 +166,9 @@ class MealDetailPage extends ConsumerWidget {
               const SizedBox(height: 24),
             ],
           ),
-        ),
+        );
+        },loading: () => Center(child: CircularProgressIndicator()),
+                  error: (error, stack) => Text('Error: ${error.toString()}'))
       ),
     );
   }
