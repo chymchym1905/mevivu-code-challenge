@@ -6,6 +6,9 @@ abstract class MealApiBase {
   Future<Either<AppException, List<MealDetail>>> fetchMealByFirstLetter(
       String letter,
       {CancelToken? cancelToken});
+  Future<Either<AppException, MealDetail>> fetchMealById(
+      String id,
+      {CancelToken? cancelToken});
   Future<Either<AppException, List<MealThumb>>> fetchMealByFilter(
       Map<String, dynamic> filter,
       {CancelToken? cancelToken});
@@ -38,6 +41,20 @@ class MealApi implements MealApiBase {
       } else {
         return left(AppException(
             message: r.data.toString(), code: r.statusCode.toString()));
+      }
+    });
+  }
+
+  @override
+  Future<Either<AppException, MealDetail>> fetchMealById(String id, {CancelToken? cancelToken}) async {
+    const url = '/lookup.php';
+    final response = await _networkService.get(url, queryParameters: {'i': id}, cancelToken: cancelToken);
+    return response.fold((l) => left(l), (r) {
+      if (r.statusCode == 200){
+        final entry = (r.data['meals'] as List).map((e)=> e as Map<String, dynamic>).toList().first;
+        return right(MealDetail.fromJson(entry));
+      } else {
+        return left(AppException(message: r.data.toString(), code: r.statusCode.toString()));
       }
     });
   }

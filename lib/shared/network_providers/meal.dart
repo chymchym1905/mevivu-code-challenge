@@ -29,6 +29,15 @@ Future<List<MealThumb>> fetchMealByFilter(
 }
 
 @riverpod
+Future<MealDetail> fetchMealById(
+    Ref ref, String id) async {
+  final cancelToken = await ref.cancelToken();
+  final api = ref.watch(mealApiProvider);
+  final result = await api.fetchMealById(id, cancelToken: cancelToken);
+  return result.fold((l) => throw l, (r) => r);
+}
+
+@riverpod
 Future<List<MealThumb>> fetchMealByArea(
     Ref ref, Map<String, dynamic> filter) async {
   final cancelToken = await ref.cancelToken();

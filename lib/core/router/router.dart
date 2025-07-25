@@ -36,7 +36,11 @@ GoRouter router(Ref ref) {
               ])
             ]),
         GoRoute(
-            path: '/landing', builder: (context, state) => const LandingPage())
+            path: '/landing', builder: (context, state) => const LandingPage()),
+        GoRoute(path: '/mealdetail/:id', builder: (context, state) {
+          final id = state.pathParameters['id'] ?? '';
+          return MealDetailPage(id: id);
+        },)
       ]);
   ref.onDispose(router.dispose);
   return router;

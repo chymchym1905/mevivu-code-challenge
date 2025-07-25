@@ -72,14 +72,19 @@ class _HomeState extends State<Home> {
                           // Create a RecipeCard for each meal
                           return Padding(
                             padding: const EdgeInsets.only(right: 16),
-                            child: RecipeCard(
-                              imageUrl: meal.strMealThumb ??
-                                  'https://via.placeholder.com/300',
-                              title: meal.strMeal ?? 'Unknown Meal',
-                              duration: '1 hour 20 Minute',
-                              rating: '4.8',
-                              onBookmarkPressed: () {},
-                              onPlayPressed: () {},
+                            child: GestureDetector(
+                              onTap: (){
+                                context.push('/mealdetail/${meal.idMeal}');
+                              },
+                              child: RecipeCard(
+                                imageUrl: meal.strMealThumb ??
+                                    'https://via.placeholder.com/300',
+                                title: meal.strMeal ?? 'Unknown Meal',
+                                duration: '1 hour 20 Minute',
+                                rating: '4.8',
+                                onBookmarkPressed: () {},
+                                onPlayPressed: () {},
+                              ),
                             ),
                           );
                         }).toList(),

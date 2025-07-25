@@ -4,3 +4,4 @@ export 'recipe.dart';
 export 'search.dart';
 export 'shell.dart';
 export 'home.dart';
+export 'mealdetail.dart';

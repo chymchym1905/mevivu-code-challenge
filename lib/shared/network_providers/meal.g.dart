@@ -312,6 +312,136 @@ class _FetchMealByFilterProviderElement
       (origin as FetchMealByFilterProvider).filter;
 }
 
+String _$fetchMealByIdHash() => r'46fca4bc1bdef4fb8f3fab35d50488519dd3f0fc';
+
+/// See also [fetchMealById].
+@ProviderFor(fetchMealById)
+const fetchMealByIdProvider = FetchMealByIdFamily();
+
+/// See also [fetchMealById].
+class FetchMealByIdFamily extends Family<AsyncValue<MealDetail>> {
+  /// See also [fetchMealById].
+  const FetchMealByIdFamily();
+
+  /// See also [fetchMealById].
+  FetchMealByIdProvider call(
+    String id,
+  ) {
+    return FetchMealByIdProvider(
+      id,
+    );
+  }
+
+  @override
+  FetchMealByIdProvider getProviderOverride(
+    covariant FetchMealByIdProvider provider,
+  ) {
+    return call(
+      provider.id,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'fetchMealByIdProvider';
+}
+
+/// See also [fetchMealById].
+class FetchMealByIdProvider extends AutoDisposeFutureProvider<MealDetail> {
+  /// See also [fetchMealById].
+  FetchMealByIdProvider(
+    String id,
+  ) : this._internal(
+          (ref) => fetchMealById(
+            ref as FetchMealByIdRef,
+            id,
+          ),
+          from: fetchMealByIdProvider,
+          name: r'fetchMealByIdProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$fetchMealByIdHash,
+          dependencies: FetchMealByIdFamily._dependencies,
+          allTransitiveDependencies:
+              FetchMealByIdFamily._allTransitiveDependencies,
+          id: id,
+        );
+
+  FetchMealByIdProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+  }) : super.internal();
+
+  final String id;
+
+  @override
+  Override overrideWith(
+    FutureOr<MealDetail> Function(FetchMealByIdRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: FetchMealByIdProvider._internal(
+        (ref) => create(ref as FetchMealByIdRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<MealDetail> createElement() {
+    return _FetchMealByIdProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FetchMealByIdProvider && other.id == id;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin FetchMealByIdRef on AutoDisposeFutureProviderRef<MealDetail> {
+  /// The parameter `id` of this provider.
+  String get id;
+}
+
+class _FetchMealByIdProviderElement
+    extends AutoDisposeFutureProviderElement<MealDetail> with FetchMealByIdRef {
+  _FetchMealByIdProviderElement(super.provider);
+
+  @override
+  String get id => (origin as FetchMealByIdProvider).id;
+}
+
 String _$fetchMealByAreaHash() => r'45597d42047e5063e3420e703ea7ce84d2d8c563';
 
 /// See also [fetchMealByArea].
